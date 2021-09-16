@@ -1,0 +1,10 @@
+.app-header {
+    padding-top:3vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.app-header .logo {
+    width:30%;
+}

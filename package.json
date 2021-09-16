@@ -1,0 +1,119 @@
+{
+  "name": "dvpn-tutorial",
+  "productName": "dVPNTutorial",
+  "version": "0.1.0",
+  "description": "Simple dVPN app for introduction into Mysterium.Network",
+  "homepage": "https://mysterium.network/",
+  "private": true,
+  "main": "index.js",
+  "author": {
+    "name": "Mysterium Network",
+    "email": "mysterium-dev@mysterium.network",
+    "url": "https://mysterium.network/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@mysteriumnetwork/node": "^0.64.0",
+    "antd": "^4.16.13",
+    "electron-is-dev": "^2.0.0",
+    "electron-log": "^4.4.1",
+    "mysterium-vpn-js": "^15.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "semver": "^7.3.5",
+    "source-map-support": "^0.5.20",
+    "sudo-prompt": "^9.2.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^16.9.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/semver": "^7.3.8",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "concurrently": "^6.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^14.0.1",
+    "electron-builder": "^22.11.7",
+    "electron-webpack": "^2.8.2",
+    "electron-webpack-ts": "^4.0.1",
+    "eslint": "^7.32.0",
+    "shx": "^0.3.3",
+    "typescript": "^4.4.3",
+    "wait-on": "^6.0.0",
+    "webpack": "^4.46.0"
+  },
+  "scripts": {
+    "postinstall": "shx rm -rf static/bin && shx mkdir -p static/bin && shx cp -r node_modules/@mysteriumnetwork/node/bin/* static/bin",
+    "dev": "electron-webpack dev",
+    "lint": "eslint src",
+    "clean": "shx rm -rf dist",
+    "build": "electron-webpack",
+    "bundle": "yarn build && electron-builder"
+  },
+  "electronWebpack": {
+    "main": {
+      "sourceDirectory": "src/electron"
+    },
+    "renderer": {
+      "sourceDirectory": "src/renderer",
+      "template": "src/renderer/index.html",
+      "webpackConfig": "webpack.renderer.additions.js"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "appId": "network.mysterium.dvpn-tutorial",
+    "files": [
+      "tsdist/**/*",
+      "tsdist/src/electron/main.js",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "static/icon.png",
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "static/icon.png"
+    },
+    "linux": {
+      "target": [],
+      "icon": "static/icon.png",
+      "category": "Network"
+    }
+  }
+}

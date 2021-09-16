@@ -1,0 +1,11 @@
+{
+  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "experimentalDecorators": false,
+    "useDefineForClassFields": true,
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "noEmitOnError": false
+  }
+}

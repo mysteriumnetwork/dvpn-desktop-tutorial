@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+  align-items: center;
+}
+.form > * {
+  margin-top: 2vh;
+}
+.radio {
+    text-align: left;
+}
