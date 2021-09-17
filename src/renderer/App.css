@@ -16,6 +16,10 @@ body {
   background-color: #fff;
   border-radius: 10px;
   padding: 2vh;
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .ant-btn-primary {
@@ -24,7 +28,7 @@ body {
   background: #9f1f63;
 }
 .ant-btn-primary:hover,
-.ant-btn-primary:focus  {
+.ant-btn-primary:focus {
   color: #fff;
   border-color: #a0346d;
   background: #a0346d;

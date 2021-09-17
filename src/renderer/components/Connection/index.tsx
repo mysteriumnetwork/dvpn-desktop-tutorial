@@ -1,58 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import "./connection.css";
-import { Descriptions, Button } from "antd";
+import { Descriptions, Button, Spin } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 import { ConnectionInfo } from "mysterium-vpn-js";
 
 type Params = {
   disconnect: CallableFunction;
   connect: CallableFunction;
+  back: CallableFunction;
   connection: ConnectionInfo | undefined;
+  connecting: boolean;
 };
 
-/*
-"consumer_id": "0x00",
-"hermes_id": "0x00",
-"proposal": {
-"access_policies": [
-{
-"id": "string",
-"source": "string"
-}
-],
-"compatibility": 0,
-"format": "string",
-"location": {
-"asn": 1,
-"city": "Amsterdam",
-"continent": "EU",
-"country": "NL",
-"ip_type": "residential",
-"isp": "Telia Lietuva, AB"
-},
-"price": {
-"currency": "string",
-"per_gib": 0,
-"per_hour": 0
-},
-"provider_id": "0x0000000000000000000000000000000000000001",
-"quality": {
-"bandwidth": 0,
-"latency": 0,
-"quality": 0
-},
-"service_type": "openvpn"
-},
-"session_id": "4cfb0324-daf6-4ad8-448b-e61fe0a1f918",
-"status": "Connected"
-
-*/
-
 function Connection(params: Params) {
-  const { connect, disconnect, connection } = params;
+  const { connect, disconnect, back, connection, connecting } = params;
 
-  const [wait, setWait] = useState(false);
   return (
-    <>
+    <div className="connection">
       <Descriptions title="Connection Info">
         <Descriptions.Item label="Price/Hour">
           {((connection?.proposal?.price.perHour || 0) / 1e18).toFixed(5)}
@@ -74,18 +38,30 @@ function Connection(params: Params) {
           {connection?.proposal?.providerId}
         </Descriptions.Item>
       </Descriptions>
+      {connecting && <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />}
       {(!connection || connection.status != "Connected") && (
+        <div>
         <Button
           type="primary"
           shape="round"
           size="large"
+          disabled={connecting}
           onClick={() => {
             connect();
-            setWait(true);
           }}
         >
           Connect to Random Node
+        </Button>{"  "}<Button
+          type="primary"
+          shape="round"
+          size="large"
+          onClick={() => {
+            back();
+          }}
+        >
+          Back
         </Button>
+        </div>
       )}
       {!!connection && connection.status == "Connected" && (
         <Button
@@ -97,7 +73,7 @@ function Connection(params: Params) {
           Disconnect
         </Button>
       )}
-    </>
+    </div>
   );
 }
 

@@ -10,4 +10,6 @@
 }
 .radio {
     text-align: left;
+    overflow: auto;
+    height: 300px;
 }
