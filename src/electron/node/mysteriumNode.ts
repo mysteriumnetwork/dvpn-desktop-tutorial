@@ -41,48 +41,12 @@
                  await Promise.all([this.killGhost(4050), this.killGhost(44050)])
              }
          })
-        //  ipcMain.handle(
-        //      MainIpcListenChannels.ImportIdentity,
-        //      async (event: IpcMainInvokeEvent, opts: ImportIdentityOpts): Promise<IpcResponse> => {
-        //          return this.importIdentity(opts)
-        //      },
-        //  )
-        //  ipcMain.handle(MainIpcListenChannels.ImportIdentityChooseFile, async (): Promise<IpcResponse> => {
-        //      const mainWindow = getMainWindow()
-        //      if (!mainWindow) {
-        //          return {}
-        //      }
-        //      const filename = dialog
-        //          .showOpenDialogSync(mainWindow, {
-        //              filters: [{ extensions: ["json"], name: "keystore" }],
-        //          })
-        //          ?.find(Boolean)
-        //      return Promise.resolve({ result: filename })
-        //  })
-        //  ipcMain.handle(
-        //      MainIpcListenChannels.ExportIdentity,
-        //      async (event: IpcMainInvokeEvent, opts: ExportIdentityOpts): Promise<IpcResponse> => {
-        //          const mainWindow = getMainWindow()
-        //          if (!mainWindow) {
-        //              return {}
-        //          }
-        //          const filename = dialog.showSaveDialogSync(mainWindow, {
-        //              filters: [{ extensions: ["json"], name: "keystore" }],
-        //              defaultPath: `${opts.id}.json`,
-        //          })
-        //          if (!filename) {
-        //              return {}
-        //          }
-        //          return await this.exportIdentity({ id: opts.id, filename: filename, passphrase: opts.passphrase })
-        //      },
-        //  )
      }
  
      // Myst process is not started from supervisor as supervisor runs as root user
      // which complicates starting myst process as non root user.
      start(port = TEQUILAPI_PORT): Promise<void> {
          this.port = port
-         console.log('MYST#################')
          const mystProcess = spawnProcess(
              mystBin(),
              [
@@ -159,81 +123,6 @@
              }
          }
      }
- 
-    //  exportIdentity({
-    //      id,
-    //      filename,
-    //      passphrase,
-    //  }: {
-    //      id: string
-    //      filename: string
-    //      passphrase: string
-    //  }): Promise<IpcResponse> {
-    //      return new Promise((resolve) => {
-    //          const cli = spawnProcess(mystBin(), [
-    //              "cli",
-    //              "--agreed-terms-and-conditions",
-    //              `--tequilapi.port=${TEQUILAPI_PORT}`,
-    //              "identities",
-    //              "export",
-    //              id,
-    //              passphrase,
-    //              filename,
-    //          ])
-    //          let err = ""
-    //          cli.stdout?.on("data", (data) => {
-    //              const message = data.toString()
-    //              log.info(message)
-    //              err = parseCLIError(message)
-    //          })
-    //          cli.on("exit", (code) => {
-    //              if (code == 0) {
-    //                  return resolve({
-    //                      result: filename,
-    //                  })
-    //              } else {
-    //                  if (err) {
-    //                      return resolve({ error: err })
-    //                  } else {
-    //                      return resolve({ error: "Failed with status: " + code })
-    //                  }
-    //              }
-    //          })
-    //      })
-    //  }
- 
-    //  importIdentity({ filename, passphrase }: ImportIdentityOpts): Promise<IpcResponse> {
-    //      return new Promise((resolve) => {
-    //          const cli = spawnProcess(mystBin(), [
-    //              "cli",
-    //              "--agreed-terms-and-conditions",
-    //              `--tequilapi.port=${TEQUILAPI_PORT}`,
-    //              "identities",
-    //              "import",
-    //              passphrase,
-    //              filename,
-    //          ])
-    //          let err = ""
-    //          cli.stdout?.on("data", (data) => {
-    //              const message = data.toString()
-    //              log.info(message)
-    //              err = parseCLIError(message)
-    //          })
-    //          cli.on("exit", (code) => {
-    //              if (code == 0) {
-    //                  return resolve({
-    //                      result: filename,
-    //                  })
-    //              } else {
-    //                  if (err) {
-    //                      return resolve({ error: err })
-    //                  } else {
-    //                      return resolve({ error: "Failed with status: " + code })
-    //                  }
-    //              }
-    //          })
-    //      })
-    //  }
  }
  
  export const mysteriumNode = new MysteriumNode()
