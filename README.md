@@ -1,9 +1,11 @@
+![Mysterium Network dVPN tutorial application](docs/demo.png)
+
 # To run
 1. `git clode https://...`
 2. `yarn install`
 3. `yarn dev` - to see how it looks like 
 
-# dVPN tutorial. Making desktop client application.
+# Mysterium Network dVPN tutorial. Making desktop client application.
 
 Hello friends, in this tutorial we will show how to build a simplest desktop dVPN application based on Electron framework, and will cover main parts of dVPN client, to give you understanding how they interract.
 
