@@ -14,7 +14,6 @@
  import { staticAssetPath, spawnProcess } from "../../shared/utils"
  import {  MainIpcListenChannels } from "../../shared/ipc/ipcChannels"
  import * as isDev from "electron-is-dev"
-//  import { ExportIdentityOpts, ImportIdentityOpts } from "../../shared/ipc/nodeIPC"
 
  const TEQUILAPI_PORT = 44050;
  

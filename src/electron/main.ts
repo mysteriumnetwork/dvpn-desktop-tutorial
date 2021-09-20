@@ -25,15 +25,13 @@ const createWindow = async (): Promise<BrowserWindow> => {
     frame: true,
     backgroundColor: "#282c34",
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true,            // We can use Node.js in renderer process
       experimentalFeatures: true,
-      nativeWindowOpen: true,
-      contextIsolation: false
+      nativeWindowOpen: true,           
+      contextIsolation: false           // We can use Electron context in renderer process, so no need for contextBridge
     },
   });
 
-  // and load the index.html of the app.
-  // win.loadFile("index.html");
   if (isDev) {
     win.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   } else {

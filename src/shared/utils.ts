@@ -1,19 +1,13 @@
-import { platform } from "os"
 import * as os from "os"
 import { execFileSync } from "child_process"
-
 import { exec } from "sudo-prompt"
 import * as semver from "semver"
+import * as path from "path"
+import * as isDev from "electron-is-dev";
+import { ChildProcess, spawn, SpawnOptions } from "child_process"
 
 import * as packageJson from "../../package.json"
 import { log } from "./log"
-
-import * as path from "path"
-import * as isDev from "electron-is-dev";
-
-import { ChildProcess, spawn, SpawnOptions } from "child_process"
-
-declare const __static: string;
 
 export const spawnProcess = (
     command: string,
@@ -65,7 +59,7 @@ export const uid = (): string => {
     let uid = 0
     // getuid only available on POSIX
     // and it's not needed on windows anyway
-    if (platform() !== "win32") {
+    if (os.platform() !== "win32") {
         uid = process.getuid()
     }
     return uid.toString()

@@ -30,8 +30,8 @@ export var State: StateInterface = {
   connectionSucces: () => {},
 };
 
-function sleep(ms:number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function getIdentity(
@@ -56,7 +56,6 @@ export async function getIdentity(
 }
 
 export async function Startup() {
-  await nodeIPC.start();
   try {
     await supervisorIPC.connect();
   } catch (err) {
@@ -64,14 +63,17 @@ export async function Startup() {
     await supervisorIPC.install();
     await supervisorIPC.connect();
   }
+  await nodeIPC.killGhosts();
+  await nodeIPC.start();
   while (true) {
     try {
       await tequilapi.connectionStatus();
-      break
+      break;
     } catch {
-      await sleep(500)
+      await sleep(500);
     }
   }
+
   log.info("Node & Supervisor started");
 }
 
@@ -114,8 +116,10 @@ export async function ConnectRandom(consumerId: string): Promise<any> {
       await tequilapi.connectionCancel();
     }
     let proposal = {
+      // There are different types of NAT networks for home internet. Some of them cant work with each other.
       natCompatibility: "auto",
-      serviceType: "wireguard", // openvpn and noop used only for testing
+      // openvpn and noop used only for testing
+      serviceType: "wireguard",
     };
     let proposals = await tequilapi.findProposals(proposal);
     let num = Math.round(Math.random() * proposals.length);
