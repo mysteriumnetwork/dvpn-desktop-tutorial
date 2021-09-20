@@ -30,6 +30,10 @@ export var State: StateInterface = {
   connectionSucces: () => {},
 };
 
+function sleep(ms:number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function getIdentity(
   id: string,
   password: string,
@@ -53,8 +57,21 @@ export async function getIdentity(
 
 export async function Startup() {
   await nodeIPC.start();
-  await supervisorIPC.install();
-  await supervisorIPC.connect();
+  try {
+    await supervisorIPC.connect();
+  } catch (err) {
+    log.info("Failed to connect to the supervisor, installing", err);
+    await supervisorIPC.install();
+    await supervisorIPC.connect();
+  }
+  while (true) {
+    try {
+      await tequilapi.connectionStatus();
+      break
+    } catch {
+      await sleep(500)
+    }
+  }
   log.info("Node & Supervisor started");
 }
 
@@ -98,6 +115,7 @@ export async function ConnectRandom(consumerId: string): Promise<any> {
     }
     let proposal = {
       natCompatibility: "auto",
+      serviceType: "wireguard", // openvpn and noop used only for testing
     };
     let proposals = await tequilapi.findProposals(proposal);
     let num = Math.round(Math.random() * proposals.length);

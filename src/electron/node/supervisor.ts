@@ -121,7 +121,9 @@
          log.info(`Upgrading supervisor ${runningVersion} → ${bundledVersion}`)
          await supervisor.install()
      }
- 
+     /**
+      * Installing supervisor as system service
+      **/ 
      async install(): Promise<void> {
          return await new Promise((resolve) => {
              sudoExec(`"${supervisorBin()}" -install -uid ${uid()}`)

@@ -33,10 +33,10 @@ function Identity(params: Params) {
             value={option}
           >
             <Space direction="vertical">
-              {identities.map((x: IdentityRef) => (
-                <Radio value={x.id}>{x.id}</Radio>
+              {identities.map((x: IdentityRef, i: number) => (
+                <Radio key={i+1} value={x.id}>{x.id}</Radio>
               ))}
-              <Radio value="">New</Radio>
+              <Radio key={0} value="">New</Radio>
             </Space>
           </Radio.Group>
           <Input
