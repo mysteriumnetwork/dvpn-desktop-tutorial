@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@mysteriumnetwork/node": "^0.64.0",
+    "@mysteriumnetwork/node": "^0.65.0",
     "antd": "^4.16.13",
     "electron-is-dev": "^2.0.0",
     "electron-log": "^4.4.1",

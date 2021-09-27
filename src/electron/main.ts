@@ -25,10 +25,11 @@ const createWindow = async (): Promise<BrowserWindow> => {
     frame: true,
     backgroundColor: "#282c34",
     webPreferences: {
-      nodeIntegration: true,            // We can use Node.js in renderer process
+      webSecurity:false,                 // We need to disable CORS check to be able to connect to Tequila API
+      nodeIntegration: true,             // We can use Node.js in renderer process
       experimentalFeatures: true,
       nativeWindowOpen: true,           
-      contextIsolation: false           // We can use Electron context in renderer process, so no need for contextBridge
+      contextIsolation: false,           // We can use Electron context in renderer process, so no need for contextBridge
     },
   });
 
