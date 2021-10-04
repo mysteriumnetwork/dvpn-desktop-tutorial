@@ -9,8 +9,6 @@
 
 Hello friends, in this tutorial we will show how to build a simplest desktop dVPN application based on Electron framework, and will cover main parts of dVPN client, to give you understanding how they interract.
 
-For those who whant's to go straight to the code, here is a link: **LINK_TO_CODE**
-
 **What we will use:**
 
 - NodeJs: >=v16.9.1
