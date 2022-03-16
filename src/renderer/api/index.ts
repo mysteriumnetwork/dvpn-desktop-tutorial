@@ -51,7 +51,7 @@ export async function getIdentity(
     await tequilapi.identityUnlock(consumerId, password);
   }
 
-  log.info("Got unclocked consumer identity");
+  log.info("Got unlocked consumer identity");
   State.currentIdentity = consumerId;
 }
 

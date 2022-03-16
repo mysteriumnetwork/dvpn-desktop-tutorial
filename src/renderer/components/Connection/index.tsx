@@ -34,7 +34,7 @@ function Connection(params: Params) {
           {connection?.proposal?.location.country}{" "}
           {connection?.proposal?.location.city}
         </Descriptions.Item>
-        <Descriptions.Item label="Prvider ID">
+        <Descriptions.Item label="Provider ID">
           {connection?.proposal?.providerId}
         </Descriptions.Item>
       </Descriptions>
