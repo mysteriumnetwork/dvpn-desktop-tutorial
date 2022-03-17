@@ -45,7 +45,7 @@ function Identity(params: Params) {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button type="primary" shape="round" size="large" onClick={submit}>
-            Unclock
+            Unlock
           </Button>
     </div>
   );
